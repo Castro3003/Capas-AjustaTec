@@ -1,0 +1,31 @@
+<?php
+
+namespace DataAccess\DTO;
+
+class LogingDTO
+{
+    private $id_Usuario;
+    private $contrasenia;
+
+    public function getIdUsuario()
+    {
+        return $this->id_Usuario;
+    }
+
+    public function setIdUsuario($id_Usuario)
+    {
+        $this->id_Usuario = $id_Usuario;
+    }
+
+    public function getContrasenia()
+    {
+        return $this->contrasenia;
+    }
+
+    public function setContrasenia($contrasenia)
+    {
+        $this->contrasenia = $contrasenia;
+    }
+}
+
+?>

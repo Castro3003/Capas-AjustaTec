@@ -1,0 +1,72 @@
+.usuarios-container {
+    margin: 20px auto; 
+    width: 1500px; 
+}
+
+#myTable {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#myTable th, #myTable td {
+    border: 1px solid #108bff;
+    padding: 8px;
+    text-align: left;
+}
+
+#myTable th {
+    background-color: #108bff;
+    color: #fff;
+}
+
+#myTable tr:nth-child(even) {
+    background-color: #f39911;
+}
+
+#myTable tr:hover {
+    background-color: #108bff;
+    color: #fff;
+    cursor: pointer;
+}
+
+button {
+    padding: 5px 10px;
+    background-color: #108bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #f39911;
+}
+
+.search-container {
+    margin-bottom: 20px;
+}
+
+.search-container label {
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+.search-container input {
+    padding: 8px;
+    border: 1px solid #108bff;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.btn-link {
+    float: right;
+    padding: 10px 20px;
+    background-color: green;
+    color: #fff;
+    text-decoration: none;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    border-bottom: 10px;
+}
+

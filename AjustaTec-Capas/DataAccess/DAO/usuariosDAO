@@ -1,0 +1,130 @@
+<?php
+
+namespace DataAccess\DAO;
+
+use Exception;
+use mysqli;
+use DataAccess\DTO\UsuarioDTO;
+
+class UsuarioDAO extends Connection_DB
+{
+    public function createUsuario(UsuarioDTO $usuario)
+    {
+        try {
+            $conn = $this->openConnection();
+            $nombre = $usuario->getNombre();
+            $apellido = $usuario->getApellido();
+            $fechaNacimiento = $usuario->getFechaNacimiento();
+            $direccion = $usuario->getDireccion();
+            $correo = $usuario->getCorreo();
+            $telefono = $usuario->getTelefono();
+            $rol = $usuario->getRol();
+            $acciones = $usuario->getAcciones();
+
+            $sql = "INSERT INTO usuarios (nombre, apellido, fecha_nacimiento, direccion, correo, telefono, rol, acciones) 
+                    VALUES ('$nombre', '$apellido', '$fechaNacimiento', '$direccion', '$correo', '$telefono', '$rol', '$acciones')";
+            $result = $conn->query($sql);
+
+            if (!$result) {
+                throw new Exception("Error al crear usuario: " . $conn->error);
+            }
+
+            return true;
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage());
+        } finally {
+            $this->closeConnection();
+        }
+    }
+
+    public function getUsuarios()
+    {
+        try {
+            $conn = $this->openConnection();
+            $sql = "SELECT * FROM usuarios";
+            $result = $conn->query($sql);
+
+            $usuarios = [];
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    $usuario = new UsuarioDTO();
+                    $usuario->setIdUsuario($row["id_usuario"]);
+                    $usuario->setNombre($row["nombre"]);
+                    $usuario->setApellido($row["apellido"]);
+                    $usuario->setFechaNacimiento($row["fecha_nacimiento"]);
+                    $usuario->setDireccion($row["direccion"]);
+                    $usuario->setCorreo($row["correo"]);
+                    $usuario->setTelefono($row["telefono"]);
+                    $usuario->setRol($row["rol"]);
+                    $usuario->setAcciones($row["acciones"]);
+                    $usuarios[] = $usuario;
+                }
+            }
+
+            return $usuarios;
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage());
+        } finally {
+            $this->closeConnection();
+        }
+    }
+
+    public function updateUsuario(UsuarioDTO $usuario)
+    {
+        try {
+            $conn = $this->openConnection();
+            $idUsuario = $usuario->getIdUsuario();
+            $nombre = $usuario->getNombre();
+            $apellido = $usuario->getApellido();
+            $fechaNacimiento = $usuario->getFechaNacimiento();
+            $direccion = $usuario->getDireccion();
+            $correo = $usuario->getCorreo();
+            $telefono = $usuario->getTelefono();
+            $rol = $usuario->getRol();
+            $acciones = $usuario->getAcciones();
+
+            $sql = "UPDATE usuarios SET 
+                    nombre='$nombre', 
+                    apellido='$apellido', 
+                    fecha_nacimiento='$fechaNacimiento', 
+                    direccion='$direccion', 
+                    correo='$correo', 
+                    telefono='$telefono', 
+                    rol='$rol', 
+                    acciones='$acciones' 
+                    WHERE id_usuario=$idUsuario";
+            $result = $conn->query($sql);
+
+            if (!$result) {
+                throw new Exception("Error al actualizar usuario: " . $conn->error);
+            }
+
+            return true;
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage());
+        } finally {
+            $this->closeConnection();
+        }
+    }
+
+    public function deleteUsuario($idUsuario)
+    {
+        try {
+            $conn = $this->openConnection();
+            $sql = "DELETE FROM usuarios WHERE id_usuario=$idUsuario";
+            $result = $conn->query($sql);
+
+            if (!$result) {
+                throw new Exception("Error al eliminar usuario: " . $conn->error);
+            }
+
+            return true;
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage());
+        } finally {
+            $this->closeConnection();
+        }
+    }
+}
+
+?>

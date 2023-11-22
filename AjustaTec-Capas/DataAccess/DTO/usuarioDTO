@@ -1,0 +1,107 @@
+<?php
+
+namespace DataAccess\DTO;
+
+class UsuarioDTO
+{
+    private $idUsuario;
+    private $nombre;
+    private $apellido;
+    private $fechaNacimiento;
+    private $direccion;
+    private $correo;
+    private $telefono;
+    private $rol;
+    private $acciones;
+
+    public function getIdUsuario()
+    {
+        return $this->idUsuario;
+    }
+
+    public function setIdUsuario($idUsuario)
+    {
+        $this->idUsuario = $idUsuario;
+    }
+
+    public function getNombre()
+    {
+        return $this->nombre;
+    }
+
+    public function setNombre($nombre)
+    {
+        $this->nombre = $nombre;
+    }
+
+    public function getApellido()
+    {
+        return $this->apellido;
+    }
+
+    public function setApellido($apellido)
+    {
+        $this->apellido = $apellido;
+    }
+
+    public function getFechaNacimiento()
+    {
+        return $this->fechaNacimiento;
+    }
+
+    public function setFechaNacimiento($fechaNacimiento)
+    {
+        $this->fechaNacimiento = $fechaNacimiento;
+    }
+
+    public function getDireccion()
+    {
+        return $this->direccion;
+    }
+
+    public function setDireccion($direccion)
+    {
+        $this->direccion = $direccion;
+    }
+
+    public function getCorreo()
+    {
+        return $this->correo;
+    }
+
+    public function setCorreo($correo)
+    {
+        $this->correo = $correo;
+    }
+
+    public function getTelefono()
+    {
+        return $this->telefono;
+    }
+
+    public function setTelefono($telefono)
+    {
+        $this->telefono = $telefono;
+    }
+
+    public function getRol()
+    {
+        return $this->rol;
+    }
+
+    public function setRol($rol)
+    {
+        $this->rol = $rol;
+    }
+
+    public function getAcciones()
+    {
+        return $this->acciones;
+    }
+
+    public function setAcciones($acciones)
+    {
+        $this->acciones = $acciones;
+    }
+}
+?>

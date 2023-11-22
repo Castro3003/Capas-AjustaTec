@@ -1,0 +1,37 @@
+<?php
+
+namespace DataAccess\DAO;
+
+use Exception;
+use DataAccess\DTO\LogingDTO;
+
+class LogingDAO extends Connection_DB
+{
+    public function getLogin()
+    {
+        $sql = "SELECT * FROM seguridad.loging";
+        $listU = [];
+
+        try {
+            $conn = $this->openConnection();
+            $result = $conn->query($sql);
+
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    $logingDTO = new LogingDTO();
+                    $logingDTO->setIdUsuario($row["IdUsuario"]);
+                    $logingDTO->setContrasenia($row["Contrasenia"]);
+                    $listU[] = $logingDTO;
+                }
+            }
+
+            return $listU;
+        } catch (Exception $e) {
+            throw new Exception($e->"Intente de nuevo"());
+        } finally {
+            $this->closeConnection();
+        }
+    }
+}
+
+?>

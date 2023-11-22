@@ -1,0 +1,25 @@
+<?php
+
+namespace BusinessObject;
+
+use Exception;
+use DataAccess\DAO\UsuariosDAO;
+use DataAccess\DTO\UsuariosDTO;
+
+class RolesBLL
+{
+    public function getRoles()
+    {
+        $objRoDAO = new RolesDAO();
+        try {
+            $listR = $objRoDAO->getRoles();
+            return $listR;
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage());
+        } finally {
+            $objRoDAO->closeConnection();
+        }
+    }
+}
+
+?>

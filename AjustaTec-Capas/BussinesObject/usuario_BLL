@@ -1,0 +1,25 @@
+<?php
+
+namespace BusinessObject;
+
+use Exception;
+use DataAccess\DAO\UsuariosDAO;
+use DataAccess\DTO\UsuariosDTO;
+
+class UsuariosBLL
+{
+    public function getUsuarios()
+    {
+        $objUserDAO = new UsuariosDAO();
+        try {
+            $listU = $objUserDAO->getUsuarios();
+            return $listU;
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage());
+        } finally {
+            $objUserDAO->closeConnection();
+        }
+    }
+}
+
+?>

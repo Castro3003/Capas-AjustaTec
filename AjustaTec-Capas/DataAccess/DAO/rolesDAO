@@ -1,0 +1,102 @@
+<?php
+
+namespace DataAccess\DAO;
+
+use Exception;
+use mysqli;
+use DataAccess\DTO\RolDTO;
+
+class RolDAO extends Connection_DB
+{
+    public function createRol(RolDTO $rol)
+    {
+        try {
+            $conn = $this->openConnection();
+            $nombreRol = $rol->getNombreRol();
+            $descripcionRol = $rol->getDescripcionRol();
+
+            $sql = "INSERT INTO roles (nombre_rol, descripcion_rol) VALUES ('$nombreRol', '$descripcionRol')";
+            $result = $conn->query($sql);
+
+            if (!$result) {
+                throw new Exception("Error al crear rol: " . $conn->error);
+            }
+
+            return true;
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage());
+        } finally {
+            $this->closeConnection();
+        }
+    }
+
+    public function getRoles()
+    {
+        try {
+            $conn = $this->openConnection();
+            $sql = "SELECT * FROM roles";
+            $result = $conn->query($sql);
+
+            $roles = [];
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    $rol = new RolDTO();
+                    $rol->setIdRol($row["id_rol"]);
+                    $rol->setNombreRol($row["nombre_rol"]);
+                    $rol->setDescripcionRol($row["descripcion_rol"]);
+                    $roles[] = $rol;
+                }
+            }
+
+            return $roles;
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage());
+        } finally {
+            $this->closeConnection();
+        }
+    }
+
+    public function updateRol(RolDTO $rol)
+    {
+        try {
+            $conn = $this->openConnection();
+            $idRol = $rol->getIdRol();
+            $nombreRol = $rol->getNombreRol();
+            $descripcionRol = $rol->getDescripcionRol();
+
+            $sql = "UPDATE roles SET nombre_rol='$nombreRol', descripcion_rol='$descripcionRol' WHERE id_rol=$idRol";
+            $result = $conn->query($sql);
+
+            if (!$result) {
+                throw new Exception("Error al actualizar rol: " . $conn->error);
+            }
+
+            return true;
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage());
+        } finally {
+            $this->closeConnection();
+        }
+    }
+
+    public function deleteRol($idRol)
+    {
+        try {
+            $conn = $this->openConnection();
+            $sql = "DELETE FROM roles WHERE id_rol=$idRol";
+            $result = $conn->query($sql);
+
+            if (!$result) {
+                throw new Exception("Error al eliminar rol: " . $conn->error);
+            }
+
+            return true;
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage());
+        } finally {
+            $this->closeConnection();
+        }
+    }
+}
+
+?>

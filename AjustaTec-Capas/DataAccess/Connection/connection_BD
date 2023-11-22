@@ -1,0 +1,37 @@
+<?php
+
+class DatabaseConnection
+{
+    private $host = "servidor";
+    private $usuario = "usuario";
+    private $contrasena = "contrasena";
+    private $baseDatos = "base_de_datos";
+    private $conexion;
+
+    public function openConnection()
+    {
+        try {
+            $this->conexion = new mysqli($this->host, $this->usuario, $this->contrasena, $this->baseDatos);
+
+            if ($this->conexion->connect_error) {
+                throw new Exception("Error de conexión: " . $this->conexion->connect_error);
+            }
+
+            return $this->conexion;
+        } catch (Exception $e) {
+            throw new Exception("Error al abrir la conexión: " . $e->getMessage());
+        }
+    }
+
+    public function closeConnection()
+    {
+        try {
+            if ($this->conexion) {
+                $this->conexion->close();
+            }
+        } catch (Exception $e) {
+            throw new Exception("Error al cerrar la conexión: " . $e->getMessage());
+        }
+    }
+}
+?>
